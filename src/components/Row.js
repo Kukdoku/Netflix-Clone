@@ -15,7 +15,7 @@ function Row(props) {
     async function fetchData() {
       const request = await axios.get(props.fetchUrl);
       setMovies(request.data.results);
-      console.log(request.data);
+      // console.log(request.data);
       return request;
     }
     fetchData();
@@ -35,20 +35,25 @@ function Row(props) {
   //   console.log("clicked");
   // };
 
-  const handleClick = (movie) => {
-    console.log("clicked");
-    // console.log(movie?.name || "");
+  const handleClick = async (movie) => {
+    setTrailerUrl("");
+    console.log(movie);
+
+    // console.log(await movieTrailer(movie));
+    console.log(movieTrailer('Loki'))
     // movieTrailer()
-    // movieTrailer(movie?.name || "")
-    //   .then((url) => {
-    //     console.log(url);
-    //     // const urlParams = new URLSearchParams(new URL(url).search);
-    //     // console.log(urlParams);
-    //     // setTrailerUrl(urlParams.get("v"));
-    //   })
-    //   .catch((error) => console.log(error));
+    movieTrailer(movie.target.alt)
+      .then((url) => {
+        console.log(url);
+        const urlParams = new URLSearchParams(new URL(url).search);
+        console.log(urlParams);
+        setTrailerUrl(urlParams.get("v"));
+      })
+      .catch((error) => console.log(error));
   };
 
+  // console.log('movies',movies)
+  // console.log("movies", movies);
   return (
     <div className="row">
       <h1>{props.title}</h1>
@@ -57,7 +62,7 @@ function Row(props) {
         {movies.map((movie) => (
           <img
             key={movie.id}
-            onClick={handleClick(movie)}
+            onClick={(movie) => handleClick(movie)}
             className={`row_poster ${props.isLargeRow && "row_posterLarge"}`}
             src={`${base_url}${
               props.isLargeRow ? movie.poster_path : movie.backdrop_path

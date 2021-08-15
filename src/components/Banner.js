@@ -15,17 +15,17 @@ function Banner() {
           Math.floor(Math.random() * request.data.results.length)
         ]
       );
-      console.log(
-        request.data.results[
-          Math.floor(Math.random() * request.data.results.length)
-        ]
-      );
+      // console.log(
+      //   request.data.results[
+      //     Math.floor(Math.random() * request.data.results.length)
+      //   ]
+      // );
       return request;
     }
     fetchData();
   }, []);
 
-  console.log(movie);
+  // console.log(movie);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
